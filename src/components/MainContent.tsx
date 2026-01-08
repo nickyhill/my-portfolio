@@ -147,17 +147,47 @@ export default function MainContent({ setCurrentSection }: { setCurrentSection: 
         }} />
 
         {/* Text content */}
-        <Box sx={{ pr: 40, textAlign: 'left', position: 'relative', zIndex: 1 }}>
-          <StyledTypography variant="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+        <Box
+          sx={{
+            px: { xs: 2, sm: 4, md: 10 }, // responsive horizontal padding
+            textAlign: { xs: 'center', md: 'left' },
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
+          <StyledTypography
+            variant="h3"
+            gutterBottom
+            sx={{
+              fontWeight: 'bold',
+              fontSize: { xs: '2rem', sm: '3rem', md: '4rem' },
+              lineHeight: 1.2,
+            }}
+          >
             Nicholas Hillengas
           </StyledTypography>
-          <Typography variant="h6" gutterBottom>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' } }}
+          >
             <i>Cybersecurity Professional</i>
           </Typography>
-          <Typography variant="subtitle1" borderLeft={2} borderColor="primary.main" pl={1.5} sx={{ fontStyle: 'italic', mt: 1 }}>
+          <Typography
+            variant="subtitle1"
+            borderLeft={2}
+            borderColor="primary.main"
+            pl={1.5}
+            sx={{
+              fontStyle: 'italic',
+              mt: 1,
+              fontSize: { xs: '0.8rem', sm: '1rem', md: '1.1rem' },
+            }}
+          >
             I am passionate about solving problems and protecting individual's, and company's data
           </Typography>
         </Box>
+
       </Box>
 
       {divider}
