@@ -3,6 +3,7 @@ import { Box, Container, Divider, IconButton, Typography, Stack } from '@mui/mat
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import socials from '../data/socials.json'; // your socials JSON
+import njhLogo from '../assets/njh_logo.png';
 
 function Copyright() {
   return (
@@ -31,7 +32,7 @@ export default function Footer() {
         }}
       >
         {/* Logo */}
-        <Box component="img" src="/njh_logo.png" alt="Nicholas Hillengas Logo" sx={{ height: 64 }} />
+        <Box component="img" src={njhLogo} alt="Nicholas Hillengas Logo" sx={{ height: 64 }} />
 
         {/* Social Icons */}
         <Stack direction="row" spacing={3}>

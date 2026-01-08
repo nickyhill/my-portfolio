@@ -9,6 +9,7 @@ import Container from '@mui/material/Container';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
+import njhLogo from '../assets/njh_logo.png';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -69,7 +70,7 @@ export default function AppAppBar({ currentSection }: AppAppBarProps) {
         <StyledToolbar variant="dense" disableGutters>
           {/* Logo + Desktop Links */}
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-            <Box component="img" src="/njh_logo.png" alt="Logo" sx={{ height: 32 }} />
+            <Box component="img" src={njhLogo} alt="Logo" sx={{ height: 32 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 2 }}>
               {sections.map((section) => {
                 const isActive = currentSection === section.id;
