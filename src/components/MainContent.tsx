@@ -1,26 +1,25 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import AvatarGroup from '@mui/material/AvatarGroup';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Chip from '@mui/material/Chip';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import RssFeedRoundedIcon from '@mui/icons-material/RssFeedRounded';
 
 
 // My Imports
 import AboutMe from './AboutMe';
-import {StyledCard, StyledCardContent} from './StyleCard';
+import EducationMe from './EducationMe';
+import WorkMe from './WorkMe';
+import ProjectMe from './ProjectMe';
+import PhotoMe from './PhotoMe';
 
+import {StyledCard} from './StyleCard';
+
+
+const bannerImg = new URL('../assets/banner/freedom-tower.jpg', import.meta.url).href;
 
 const StyledTypography = styled(Typography)({
   display: '-webkit-box',
@@ -52,7 +51,7 @@ export function Search() {
   );
 }
 
-export default function MainContent() {
+export default function MainContent({ setCurrentSection }: { setCurrentSection: (section: string) => void }) {
   const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(
     null,
   );
@@ -65,119 +64,124 @@ export default function MainContent() {
     setFocusedCardIndex(null);
   };
 
-  const handleClick = () => {
-    console.info('You clicked the filter chip.');
-  };
+
+  const divider = <Grid size={{ xs: 12, md: 6 }}>
+          <StyledCard
+            variant="outlined"
+            onFocus={() => handleFocus(1)}
+            onBlur={handleBlur}
+            tabIndex={0}
+            className={focusedCardIndex === 1 ? 'Mui-focused' : ''}
+          >
+          </StyledCard>
+      </Grid>
+
+  const homeRed = React.useRef<HTMLDivElement>(null);
+  const aboutRef = React.useRef<HTMLDivElement>(null);
+  const educationRef = React.useRef<HTMLDivElement>(null);
+  const workRef = React.useRef<HTMLDivElement>(null);
+  const projectRef = React.useRef<HTMLDivElement>(null);
+  const photoRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const sections = [
+      {id: 'home', ref: homeRed },
+      { id: 'about', ref: aboutRef },
+      { id: 'education', ref: educationRef },
+      { id: 'work', ref: workRef },
+      { id: 'projects', ref: projectRef },
+      { id: 'photos', ref: photoRef },
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const section = sections.find((s) => s.ref.current === entry.target);
+            if (section) setCurrentSection(section.id);
+          }
+        });
+      },
+      { rootMargin: '-50% 0px -50% 0px', threshold: 0 } // trigger when section is in middle of viewport
+    );
+
+    sections.forEach((s) => {
+      if (s.ref.current) observer.observe(s.ref.current);
+    });
+
+    return () => {
+      sections.forEach((s) => {
+        if (s.ref.current) observer.unobserve(s.ref.current);
+      });
+    };
+    }, [setCurrentSection]);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      <div>
-        <Typography variant="h1" gutterBottom>
-          Nicholas Hillengas
-        </Typography>
-        <Typography>Cybersecurity Professional</Typography>
-      </div>
 
-      <Grid size={{ xs: 12, md: 6 }}>
-          <StyledCard
-            variant="outlined"
-            onFocus={() => handleFocus(1)}
-            onBlur={handleBlur}
-            tabIndex={0}
-            className={focusedCardIndex === 1 ? 'Mui-focused' : ''}
-          >
-          </StyledCard>
-      </Grid>
+      {/* Banner Section */}
+      <Box ref={homeRed} id="home" 
+        sx={{
+          position: 'relative',
+          height: { xs: 300, md: 400 }, // adjust height for mobile/desktop
+          width: '100%',
+          backgroundImage: `url(${bannerImg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          borderRadius: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          color: 'common.white', // default text color on banner
+          textAlign: 'center',
+          px: 2,
+        }} >
+        {/* Optional overlay for better readability */}
+        <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          bgcolor: 'rgba(0, 0, 0, 0.4)', // semi-transparent overlay
+          borderRadius: 2,
+        }} />
 
-      <AboutMe />
-      
-      <Grid size={{ xs: 12, md: 6 }}>
-          <StyledCard
-            variant="outlined"
-            onFocus={() => handleFocus(1)}
-            onBlur={handleBlur}
-            tabIndex={0}
-            className={focusedCardIndex === 1 ? 'Mui-focused' : ''}
-          >
-          </StyledCard>
-      </Grid>
-      
-      <Grid container spacing={2} columns={12}>
-        
-        <Grid size={{ xs: 12, md: 6 }}>
-          <StyledCard
-            variant="outlined"
-            onFocus={() => handleFocus(1)}
-            onBlur={handleBlur}
-            tabIndex={0}
-            className={focusedCardIndex === 1 ? 'Mui-focused' : ''}
-          >
-          </StyledCard>
-        </Grid>
+        {/* Text content */}
+        <Box sx={{ pr: 40, textAlign: 'left', position: 'relative', zIndex: 1 }}>
+          <StyledTypography variant="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+            Nicholas Hillengas
+          </StyledTypography>
+          <Typography variant="h6" gutterBottom>
+            <i>Cybersecurity Professional</i>
+          </Typography>
+          <Typography variant="subtitle1" borderLeft={2} borderColor="primary.main" pl={1.5} sx={{ fontStyle: 'italic', mt: 1 }}>
+            I am passionate about solving problems and protecting individual's, and company's data
+          </Typography>
+        </Box>
+      </Box>
 
-        <Grid size={{ xs: 12, md: 4 }}>
-          <StyledCard
-            variant="outlined"
-            onFocus={() => handleFocus(2)}
-            onBlur={handleBlur}
-            tabIndex={0}
-            className={focusedCardIndex === 2 ? 'Mui-focused' : ''}
-            sx={{ height: '100%' }}
-          >
-          </StyledCard>
-        </Grid>
+      {divider}
 
-        <Grid size={{ xs: 12, md: 4 }}>
-          <Box
-            sx={{ display: 'flex', flexDirection: 'column', gap: 2, height: '100%' }}
-          >
-            <StyledCard
-              variant="outlined"
-              onFocus={() => handleFocus(3)}
-              onBlur={handleBlur}
-              tabIndex={0}
-              className={focusedCardIndex === 3 ? 'Mui-focused' : ''}
-              sx={{ height: '100%' }}
-            >
-              <StyledCardContent
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  height: '100%',
-                }}
-              >
-                
-              </StyledCardContent>
-            </StyledCard>
-            <StyledCard
-              variant="outlined"
-              onFocus={() => handleFocus(4)}
-              onBlur={handleBlur}
-              tabIndex={0}
-              className={focusedCardIndex === 4 ? 'Mui-focused' : ''}
-              sx={{ height: '100%' }}
-            >
-              
-                
-            </StyledCard>
-          </Box>
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 4 }}>
-          <StyledCard
-            variant="outlined"
-            onFocus={() => handleFocus(5)}
-            onBlur={handleBlur}
-            tabIndex={0}
-            className={focusedCardIndex === 5 ? 'Mui-focused' : ''}
-            sx={{ height: '100%' }}
-          >
-            
-          </StyledCard>
-        </Grid>
-
-      </Grid>
+      {divider}
+      <Box ref={aboutRef} id="about">
+        <AboutMe />
+      </Box>
+      {divider}
+      <Box ref={educationRef} id="education">
+        <EducationMe />
+      </Box>
+      {divider}
+      <Box ref={workRef} id="work">
+        <WorkMe />
+      </Box>
+      {divider}
+      <Box ref={projectRef} id="projects">
+        <ProjectMe />
+      </Box>
+      {divider}
+      <Box ref={photoRef} id="photos">
+        <PhotoMe />
+      </Box>
     </Box>
   );
 }

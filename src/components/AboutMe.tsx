@@ -74,20 +74,7 @@ export default function AboutMe() {
           ))}
         </Box>
       </Box>
-
-      {/* Quote / Detail */}
-      <Box
-        sx={{
-          borderLeft: 4,
-          borderColor: 'primary.main',
-          pl: 3,
-          mt: 4,
-        }}
-      >
-        <Typography variant="subtitle1" sx={{ fontStyle: 'italic' }}>
-          {aboutMeData.detailOrQuote}
-        </Typography>
-      </Box>
+      
     </Box>
   );
 }

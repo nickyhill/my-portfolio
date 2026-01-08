@@ -1,0 +1,71 @@
+{
+
+    "5" : {
+        "company": "Tyche Insights",
+        "position" : "Cloud Engineer (Security-Focused) / Systems Administrator",
+        "timeframe" : "August 2025 - Present",
+        "duties" : ["Designed, deployed, and secured a version 1 (greenfield) AWS environment, building a LAMP (Linux, Apache, MySQL, PHP) stack to support “unbiased data storytelling and data journalism using public, government data - by citizens, for citizens.”",
+        "Implemented AWS security best practices, including IAM least-privilege access and centralized logging.",
+        "Conducted AWS security audits using Prowler, mapping findings to CIS benchmarks and remediating security gaps.",
+        "Serve as the Linux Administrator, responsible for system hardening, patch management, monitoring, and incident response.",
+        "Administer and maintain Linux cloud infrastructure to ensure availability, performance, and security compliance."
+        ],
+        "logo": "tycheicon.png"
+    },
+    
+    "4" : {
+        "company": "OrbitalFire",
+        "position" : "Intern",
+        "timeframe" : "May 2022 - September 2022",
+        "duties" : ["Developed automated PowerShell scripts to monitor cyber attack data, contributing to proactive threat monitoring and risk mitigation strategies.",
+        "Leveraged the .NET framework to convert security data into monthly Cyberblast newsletters, providing clients with actionable insights and enhancing their security posture.",
+        "Collaborated in ongoing enhancement of cybersecurity alerting tools, contributing to threat intelligence dissemination."
+        ],
+        "logo": "orbitalfire_logo.png"
+    },
+
+    "3" : {
+        "company": "BuildingFootprint USA",
+        "position" : "QC Intern",
+        "timeframe" : "June 2018 - December 2021",
+        "duties" : ["Assisted in training AI systems for data accuracy, improving the integrity of geospatial datasets.",
+        "Performed quality control on large datasets, identifying potential risks in data integrity and accuracy.",
+        "Performed quality control on lidar-based building footprint data, ensuring precise mapping using ArcGIS."
+        ],
+        "logo": "bfusa_logo.png"
+    },
+
+    "2" : {
+        "company" :"United States Postal Service",
+        "position" : "Rural Carrier Assistant",
+        "timeframe" : "February 2025 - June 2025",
+        "duties" : ["Delivered mail and packages efficiently and accurately to customers along assigned routes, ensuring timely and reliable service.",
+        "Provided excellent customer service by addressing inquiries and resolving issues related to mail delivery.",
+        "Assisted in sorting and organizing mail at the post office to facilitate efficient delivery operations."
+        ],
+        "logo": "usps_logo.svg"
+    },
+
+    "1" : {
+        "company": "Virginia Tech Dining Services",
+        "position" : "Student Employee",
+        "timeframe" : "March 2024 - May 2024",
+        "duties" : ["Prepared and cooked meals efficiently in a high-demand, fast-paced environment, ensuring adherence to safety and quality standards.",
+        "Provided customer service, addressing customer needs and resolving complaints in a timely and professional manner.",
+        "Collaborated with a diverse team to coordinate meal preparation and customer service, developing strong teamwork and communication skills."
+        ],
+        "logo": "vt_logo.png"
+    },
+    
+    "0" :{
+        "company": "City of Albany Department of Recreation",
+        "position" : "Lifeguard",
+        "timeframe" : "June 2017- June 2018",
+        "duties" : ["Held American Red Cross Lifesaving and CPR Certificates.", 
+        "I was responsible for continual observation of the swimming area", 
+        "Maintenance of the pool area", 
+        "Providing training and assistance to pool attendees if needed."
+        ],
+        "logo": "coa_logo.png"
+    }
+}

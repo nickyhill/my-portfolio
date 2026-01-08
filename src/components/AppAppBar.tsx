@@ -6,13 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
-import Sitemark from './SitemarkIcon';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -30,12 +26,33 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   padding: '8px 12px',
 }));
 
-export default function AppAppBar() {
-  const [open, setOpen] = React.useState(false);
+interface AppAppBarProps {
+  currentSection: string;
+}
 
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
+export default function AppAppBar({ currentSection }: AppAppBarProps) {
+  const sections = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'education', label: 'Education' },
+    { id: 'work', label: 'Work' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'photos', label: 'Photography' },
+  ];
+
+  const handleScrollTo = (id: string) => {
+    if (id === 'home') {
+      // scroll all the way to the top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
+
+  const [open, setOpen] = React.useState(false);
+  const toggleDrawer = (newOpen: boolean) => () => setOpen(newOpen);
 
   return (
     <AppBar
@@ -50,62 +67,75 @@ export default function AppAppBar() {
     >
       <Container maxWidth="lg">
         <StyledToolbar variant="dense" disableGutters>
+          {/* Logo + Desktop Links */}
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button variant="text" color="info" size="small">
-                Home
-              </Button>
-              <Button variant="text" color="info" size="small">
-                About
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Work
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Education
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                Projects
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                Portfolio
-              </Button>
+            <Box component="img" src="/njh_logo.png" alt="Logo" sx={{ height: 32 }} />
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 2 }}>
+              {sections.map((section) => {
+                const isActive = currentSection === section.id;
+                return (
+                  <Button
+                    key={section.id}
+                    size="small"
+                    variant="text"
+                    onClick={() => handleScrollTo(section.id)}
+                    sx={{
+                      ml: 1,
+                      fontWeight: isActive ? 600 : 400,
+                      color: isActive ? 'text.primary' : 'text.secondary',
+                      bgcolor: isActive ? 'grey.200' : 'transparent',
+                      borderRadius: 1,
+                      '&:hover': {
+                        bgcolor: isActive ? 'grey.200' : 'action.hover',
+                      },
+                    }}
+                  >
+                    {section.label}
+                  </Button>
+                );
+              })}
             </Box>
+
           </Box>
-          
+
+          {/* Mobile Drawer + ColorMode */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
             <ColorModeIconDropdown size="medium" />
-            <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
+            <IconButton aria-label="Menu" onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
             <Drawer
               anchor="top"
               open={open}
               onClose={toggleDrawer(false)}
-              PaperProps={{
-                sx: {
-                  top: 'var(--template-frame-height, 0px)',
-                },
-              }}
+              sx={{ top: 'var(--template-frame-height, 0px)' }}
             >
-              <Box sx={{ p: 2, backgroundColor: 'background.default' }}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                  }}
-                >
-                  <IconButton onClick={toggleDrawer(false)}>
-                    <CloseRoundedIcon />
-                  </IconButton>
-                </Box>
-                <MenuItem>Home</MenuItem>
-                <MenuItem>About</MenuItem>
-                <MenuItem>Work</MenuItem>
-                <MenuItem>Education</MenuItem>
-                <MenuItem>Projects</MenuItem>
-                <MenuItem>Portfolio</MenuItem>
+              <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 2 }}>
+                {sections.map((section) => {
+                  const isActive = currentSection === section.id;
+                  return (
+                    <Button
+                      key={section.id}
+                      size="small"
+                      variant="text"
+                      onClick={() => handleScrollTo(section.id)}
+                      sx={{
+                        ml: 1,
+                        fontWeight: isActive ? 600 : 400,
+                        color: isActive ? 'text.primary' : 'text.secondary',
+                        bgcolor: isActive ? 'grey.200' : 'transparent',
+                        borderRadius: 1,
+                        '&:hover': {
+                          bgcolor: isActive ? 'grey.200' : 'action.hover',
+                        },
+                      }}
+                    >
+                      {section.label}
+                    </Button>
+                  );
+                })}
               </Box>
+
             </Drawer>
           </Box>
         </StyledToolbar>

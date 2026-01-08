@@ -1,0 +1,16 @@
+{
+    "1" : {
+        "school": "The State University of New York at Albany",
+        "expectedGrad" : "Summer 2026",
+        "degree" : "Master of Science in Digital Forensics and Cybersecurity",
+        "major": null,
+        "gpa": null
+        },
+    "2" : {
+        "school": "Virginia Polytechnical Institue and State University",
+        "expectedGrad" : "May 2024",
+        "degree" : "Bachelor of Science in Computer Engineering",
+        "major" : "Networking and Cybersecurity",
+        "gpa" : "3.58"
+        }
+}
