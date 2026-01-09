@@ -106,29 +106,31 @@ export default function AppAppBar({ currentSection }: AppAppBarProps) {
               <MenuIcon />
             </IconButton>
             <Drawer
+              variant="temporary"
               anchor="top"
               open={open}
               onClose={toggleDrawer(false)}
-              sx={{ top: 'var(--template-frame-height, 0px)' }}
+              ModalProps={{ keepMounted: true }}
+              sx={{
+                '& .MuiDrawer-paper': {
+                  width: '100%',
+                  maxHeight: '100vh',
+                },
+              }}
             >
-              <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
                 {sections.map((section) => {
                   const isActive = currentSection === section.id;
                   return (
                     <Button
                       key={section.id}
-                      size="small"
-                      variant="text"
+                      fullWidth
                       onClick={() => handleScrollTo(section.id)}
                       sx={{
-                        ml: 1,
+                        justifyContent: 'flex-start',
                         fontWeight: isActive ? 600 : 400,
                         color: isActive ? 'text.primary' : 'text.secondary',
-                        bgcolor: isActive ? 'grey.200' : 'transparent',
-                        borderRadius: 1,
-                        '&:hover': {
-                          bgcolor: isActive ? 'grey.200' : 'action.hover',
-                        },
+                        bgcolor: isActive ? 'action.selected' : 'transparent',
                       }}
                     >
                       {section.label}
@@ -136,8 +138,8 @@ export default function AppAppBar({ currentSection }: AppAppBarProps) {
                   );
                 })}
               </Box>
-
             </Drawer>
+
           </Box>
         </StyledToolbar>
       </Container>
