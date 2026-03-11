@@ -10,6 +10,11 @@
     "url": "https://github.com/nickyhill/http-exfiltration"
   },
   {
+    "title": "Recipe App",
+    "description": "A simple recipe app for storing and sharing favorite recipes. Users can create, edit, and delete recipes, as well as browse and import recipes.",
+    "url": "https://www.nicholashillengas.com"
+  },
+  {
     "title": "Flask Golf Statistics Web Server",
     "description": "A Flask-based web application for tracking golf matches, player statistics, and leaderboards. This application allows users to record match results, manage player profiles, and view comprehensive golf statistics.",
     "url": "https://github.com/nickyhill/golf_server"
