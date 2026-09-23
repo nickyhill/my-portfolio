@@ -17,7 +17,7 @@
         "company": "OrbitalFire",
         "position" : "Intern",
         "timeframe" : "May 2022 - September 2022",
-        "duties" : ["Developed automated PowerShell scripts to monitor cyber attack data, contributing to proactive threat monitoring and risk mitigation strategies.",
+        "duties" : ["Developed automated PowerShell scripts to monitor cyber-attack data, contributing to proactive threat monitoring and risk mitigation strategies.",
         "Leveraged the .NET framework to convert security data into monthly Cyberblast newsletters, providing clients with actionable insights and enhancing their security posture.",
         "Collaborated in ongoing enhancement of cybersecurity alerting tools, contributing to threat intelligence dissemination."
         ],
@@ -25,8 +25,8 @@
     },
 
     "3" : {
-        "company": "BuildingFootprint USA",
-        "position" : "QC Intern",
+        "company": "Building Footprint USA",
+        "position" : "Quality Control Intern",
         "timeframe" : "June 2018 - December 2021",
         "duties" : ["Assisted in training AI systems for data accuracy, improving the integrity of geospatial datasets.",
         "Performed quality control on large datasets, identifying potential risks in data integrity and accuracy.",

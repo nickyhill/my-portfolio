@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import SectionTitle from './SectionTitle';
 
 const previewImages = [
   new URL('../assets/photo/cone_in_light.jpg', import.meta.url).href,
@@ -14,12 +15,10 @@ const previewImages = [
 
 export default function PhotoMe() {
   return (
-    <Box id="photography">
-      <Typography variant="h3" gutterBottom>
-        Photography
-      </Typography>
+    <Box>
+      <SectionTitle>Photography</SectionTitle>
 
-      <Typography variant="body1" sx={{ mb: 3 }}>
+      <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
         Love to take film pictures in my free time! Here is a sneak peek of some of my shots.
       </Typography>
 
@@ -30,16 +29,23 @@ export default function PhotoMe() {
         sx={{ mb: 3 }}
       >
         {previewImages.map((src, index) => (
-          <Grid sx={{ xs: 6, sm: 3 }} key={index}>
+          <Grid size={{ xs: 6, sm: 4, md: 3 }} key={index}>
             <Box
               component="img"
               src={src}
               alt={`Photography preview ${index + 1}`}
+              loading="lazy"
               sx={{
+                display: 'block',
                 width: '100%',
-                height: 200,
+                height: { xs: 160, md: 240 },
                 objectFit: 'cover',
                 borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'divider',
+                filter: 'grayscale(35%)',
+                transition: 'filter 200ms ease, border-color 200ms ease',
+                '&:hover': { filter: 'none', borderColor: 'primary.dark' },
               }}
             />
           </Grid>

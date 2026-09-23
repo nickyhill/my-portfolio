@@ -23,7 +23,10 @@ export default function Footer() {
     <React.Fragment>
       <Divider sx={{ mb: 2 }} />
       <Container
+        maxWidth="xl"
         sx={{
+          px: { xs: 2, sm: 4, lg: 6 },
+          gap: 2,
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',

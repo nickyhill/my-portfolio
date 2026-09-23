@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
+import { monoFont } from '../../shared-theme/themePrimitives';
 import njhLogo from '../assets/njh_logo.png';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -66,7 +66,7 @@ export default function AppAppBar({ currentSection }: AppAppBarProps) {
         mt: 'calc(var(--template-frame-height, 0px) + 28px)',
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <StyledToolbar variant="dense" disableGutters>
           {/* Logo + Desktop Links */}
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
@@ -82,12 +82,14 @@ export default function AppAppBar({ currentSection }: AppAppBarProps) {
                     onClick={() => handleScrollTo(section.id)}
                     sx={{
                       ml: 1,
+                      fontFamily: monoFont,
                       fontWeight: isActive ? 600 : 400,
-                      color: isActive ? 'text.primary' : 'text.secondary',
-                      bgcolor: isActive ? 'grey.200' : 'transparent',
+                      color: isActive ? 'primary.main' : 'text.secondary',
+                      bgcolor: isActive ? 'action.selected' : 'transparent',
                       borderRadius: 1,
                       '&:hover': {
-                        bgcolor: isActive ? 'grey.200' : 'action.hover',
+                        color: 'primary.light',
+                        bgcolor: 'action.hover',
                       },
                     }}
                   >
@@ -99,9 +101,8 @@ export default function AppAppBar({ currentSection }: AppAppBarProps) {
 
           </Box>
 
-          {/* Mobile Drawer + ColorMode */}
+          {/* Mobile Drawer */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
-            <ColorModeIconDropdown size="medium" />
             <IconButton aria-label="Menu" onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
@@ -128,8 +129,9 @@ export default function AppAppBar({ currentSection }: AppAppBarProps) {
                       onClick={() => handleScrollTo(section.id)}
                       sx={{
                         justifyContent: 'flex-start',
+                        fontFamily: monoFont,
                         fontWeight: isActive ? 600 : 400,
-                        color: isActive ? 'text.primary' : 'text.secondary',
+                        color: isActive ? 'primary.main' : 'text.secondary',
                         bgcolor: isActive ? 'action.selected' : 'transparent',
                       }}
                     >

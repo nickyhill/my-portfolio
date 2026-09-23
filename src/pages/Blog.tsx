@@ -15,9 +15,9 @@ export default function Blog(props: { disableCustomTheme?: boolean }) {
 
       <AppAppBar currentSection={currentSection}/>
       <Container
-        maxWidth="lg"
+        maxWidth="xl"
         component="main"
-        sx={{ display: 'flex', flexDirection: 'column', my: 16, gap: 4 }}>
+        sx={{ display: 'flex', flexDirection: 'column', mt: { xs: 14, md: 16 }, mb: 10, gap: 4, px: { xs: 2, sm: 4, lg: 6 } }}>
         <MainContent setCurrentSection={setCurrentSection}/>
       </Container>
       <Footer />

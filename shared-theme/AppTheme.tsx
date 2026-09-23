@@ -28,7 +28,9 @@ export default function AppTheme(props: AppThemeProps) {
             colorSchemeSelector: 'data-mui-color-scheme',
             cssVarPrefix: 'template',
           },
-          colorSchemes, // Recently added in v6 for building light & dark mode app, see https://mui.com/material-ui/customization/palette/#color-schemes
+          // Dark-only site: only the dark scheme is generated
+          colorSchemes: { dark: colorSchemes.dark },
+          defaultColorScheme: 'dark',
           typography,
           shadows,
           shape,
@@ -46,7 +48,7 @@ export default function AppTheme(props: AppThemeProps) {
     return <React.Fragment>{children}</React.Fragment>;
   }
   return (
-    <ThemeProvider theme={theme} disableTransitionOnChange>
+    <ThemeProvider theme={theme} defaultMode="dark" disableTransitionOnChange>
       {children}
     </ThemeProvider>
   );

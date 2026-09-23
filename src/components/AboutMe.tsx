@@ -1,80 +1,53 @@
-import * as React from 'react';
 import { Box, Typography, Chip } from '@mui/material';
 import aboutMeData from '../data/aboutme.json';
 import Grid from '@mui/material/Grid';
 import { StyledCard, StyledCardContent} from './StyleCard';
+import SectionTitle from './SectionTitle';
+import { monoFont } from '../../shared-theme/themePrimitives';
 
 export default function AboutMe() {
-    const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(
-        null,
-    );
-
-    const handleFocus = (index: number) => {
-        setFocusedCardIndex(index);
-    };
-
-    const handleBlur = () => {
-        setFocusedCardIndex(null);
-    };
-
   return (
-    <Box
-      id="about"
-      
-    >
-      {/* Section Header */}
-      <Box>
-        <Typography variant="h3" gutterBottom>
-          About Me
-        </Typography>
-        <Grid size={{ xs: 12, md: 4 }}>
-          <StyledCard
-            variant="outlined"
-            onFocus={() => handleFocus(5)}
-            onBlur={handleBlur}
-            tabIndex={0}
-            className={focusedCardIndex === 5 ? 'Mui-focused' : ''}
-            sx={{ height: ' 100%' }}
-          >
-            <StyledCardContent
-                            sx={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                              justifyContent: 'space-between',
-                              height: '100%',
-                            }}
-                          >
+    <Box>
+      <SectionTitle>About Me</SectionTitle>
 
-                <Typography variant="body2" color="text.secondary">
-                    {aboutMeData.description.split('\n\n').map((paragraph, index) => (
-                        <React.Fragment key={index}>
-                        {paragraph}
-                        <br />
-                        <br />
-                        </React.Fragment>
-                    ))}
+      <Grid container spacing={3} sx={{ alignItems: 'stretch' }}>
+        {/* Description */}
+        <Grid size={{ xs: 12, md: 7 }} sx={{ display: 'flex' }}>
+          <StyledCard variant="outlined" tabIndex={0} sx={{ width: '100%' }}>
+            <StyledCardContent sx={{ gap: 2 }}>
+              {aboutMeData.description.split('\n').map((paragraph, index) => (
+                <Typography key={index} variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                  {paragraph}
                 </Typography>
-                            
+              ))}
             </StyledCardContent>
-            
           </StyledCard>
-
         </Grid>
-        
-      </Box>
 
-      {/* Skills */}
-      <Box sx={{ mt: 2 }}>
-        <Typography variant="h5" gutterBottom={true} >
-          Skills & Technologies
-        </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-          {aboutMeData.skills.map((skill, index) => (
-            <Chip key={index} label={skill} variant="outlined" />
-          ))}
-        </Box>
-      </Box>
-      
+        {/* Skills */}
+        <Grid size={{ xs: 12, md: 5 }} sx={{ display: 'flex' }}>
+          <StyledCard variant="outlined" tabIndex={0} sx={{ width: '100%' }}>
+            <StyledCardContent sx={{ gap: 2 }}>
+              <Typography variant="h5">Skills & Technologies</Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                {aboutMeData.skills.map((skill, index) => (
+                  <Chip
+                    key={index}
+                    label={skill}
+                    variant="outlined"
+                    sx={{
+                      fontFamily: monoFont,
+                      borderColor: 'primary.dark',
+                      bgcolor: 'transparent',
+                      '& .MuiChip-label': { color: 'primary.light', fontFamily: monoFont, fontWeight: 500 },
+                    }}
+                  />
+                ))}
+              </Box>
+            </StyledCardContent>
+          </StyledCard>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

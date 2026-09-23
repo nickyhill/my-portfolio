@@ -31,18 +31,34 @@ const defaultTheme = createTheme();
 
 const customShadows: Shadows = [...defaultTheme.shadows];
 
+// Blue-violet accent: the solid midpoint of the blue → purple gradient below
 export const brand = {
-  50: 'hsl(210, 100%, 95%)',
-  100: 'hsl(210, 100%, 92%)',
-  200: 'hsl(210, 100%, 80%)',
-  300: 'hsl(210, 100%, 65%)',
-  400: 'hsl(210, 98%, 48%)',
-  500: 'hsl(210, 98%, 42%)',
-  600: 'hsl(210, 98%, 55%)',
-  700: 'hsl(210, 100%, 35%)',
-  800: 'hsl(210, 100%, 16%)',
-  900: 'hsl(210, 100%, 21%)',
+  50: 'hsl(230, 100%, 96%)',
+  100: 'hsl(230, 95%, 90%)',
+  200: 'hsl(232, 90%, 80%)',
+  300: 'hsl(234, 88%, 72%)',
+  400: 'hsl(236, 85%, 65%)',
+  500: 'hsl(238, 75%, 55%)',
+  600: 'hsl(240, 65%, 45%)',
+  700: 'hsl(242, 60%, 35%)',
+  800: 'hsl(244, 60%, 18%)',
+  900: 'hsl(246, 60%, 10%)',
 };
+
+export const accentBlue = 'hsl(212, 95%, 60%)';
+export const accentPurple = 'hsl(275, 85%, 66%)';
+export const accentGradient = `linear-gradient(90deg, ${accentBlue}, ${accentPurple})`;
+
+// Gradient-filled text; apply via sx spread
+export const gradientText = {
+  background: accentGradient,
+  WebkitBackgroundClip: 'text',
+  backgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  color: 'transparent',
+};
+
+export const monoFont = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
 
 export const gray = {
   50: 'hsl(220, 35%, 97%)',
@@ -293,10 +309,10 @@ export const colorSchemes = {
   dark: {
     palette: {
       primary: {
-        contrastText: brand[50],
+        contrastText: gray[900],
         light: brand[300],
         main: brand[400],
-        dark: brand[700],
+        dark: brand[600],
       },
       info: {
         contrastText: brand[300],
@@ -324,11 +340,11 @@ export const colorSchemes = {
       },
       divider: alpha(gray[700], 0.6),
       background: {
-        default: gray[900],
-        paper: 'hsl(220, 30%, 7%)',
+        default: 'hsl(220, 30%, 4%)',
+        paper: 'hsl(220, 25%, 7%)',
       },
       text: {
-        primary: 'hsl(0, 0%, 100%)',
+        primary: 'hsl(210, 20%, 94%)',
         secondary: gray[400],
       },
       action: {
@@ -344,31 +360,37 @@ export const colorSchemes = {
 export const typography = {
   fontFamily: 'Inter, sans-serif',
   h1: {
+    fontFamily: monoFont,
     fontSize: defaultTheme.typography.pxToRem(48),
-    fontWeight: 600,
+    fontWeight: 700,
     lineHeight: 1.2,
     letterSpacing: -0.5,
   },
   h2: {
+    fontFamily: monoFont,
     fontSize: defaultTheme.typography.pxToRem(36),
-    fontWeight: 600,
+    fontWeight: 700,
     lineHeight: 1.2,
   },
   h3: {
-    fontSize: defaultTheme.typography.pxToRem(30),
+    fontFamily: monoFont,
+    fontSize: defaultTheme.typography.pxToRem(28),
+    fontWeight: 700,
     lineHeight: 1.2,
   },
   h4: {
-    fontSize: defaultTheme.typography.pxToRem(24),
+    fontFamily: monoFont,
+    fontSize: defaultTheme.typography.pxToRem(22),
     fontWeight: 600,
     lineHeight: 1.5,
   },
   h5: {
-    fontSize: defaultTheme.typography.pxToRem(20),
+    fontFamily: monoFont,
+    fontSize: defaultTheme.typography.pxToRem(18),
     fontWeight: 600,
   },
   h6: {
-    fontSize: defaultTheme.typography.pxToRem(18),
+    fontSize: defaultTheme.typography.pxToRem(17),
     fontWeight: 600,
   },
   subtitle1: {
@@ -379,13 +401,15 @@ export const typography = {
     fontWeight: 500,
   },
   body1: {
-    fontSize: defaultTheme.typography.pxToRem(14),
+    fontSize: defaultTheme.typography.pxToRem(15),
   },
   body2: {
     fontSize: defaultTheme.typography.pxToRem(14),
     fontWeight: 400,
+    lineHeight: 1.6,
   },
   caption: {
+    fontFamily: monoFont,
     fontSize: defaultTheme.typography.pxToRem(12),
     fontWeight: 400,
   },

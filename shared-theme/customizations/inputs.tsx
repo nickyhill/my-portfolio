@@ -7,7 +7,7 @@ import { toggleButtonClasses } from '@mui/material/ToggleButton';
 import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
-import { gray, brand } from '../themePrimitives';
+import { gray, brand, accentGradient } from '../themePrimitives';
 
 /* eslint-disable import/prefer-default-export */
 export const inputsCustomizations: Components<Theme> = {
@@ -71,18 +71,19 @@ export const inputsCustomizations: Components<Theme> = {
                 backgroundColor: gray[800],
               },
               ...theme.applyStyles('dark', {
-                color: 'black',
-                backgroundColor: gray[50],
-                backgroundImage: `linear-gradient(to bottom, ${gray[100]}, ${gray[50]})`,
-                boxShadow: 'inset 0 -1px 0  hsl(220, 30%, 80%)',
-                border: `1px solid ${gray[50]}`,
+                color: 'white',
+                fontWeight: 600,
+                backgroundColor: brand[500],
+                backgroundImage: accentGradient,
+                boxShadow: `0 0 16px -4px ${alpha(brand[400], 0.6)}`,
+                border: 'none',
                 '&:hover': {
-                  backgroundImage: 'none',
-                  backgroundColor: gray[300],
-                  boxShadow: 'none',
+                  backgroundImage: accentGradient,
+                  filter: 'brightness(1.12)',
+                  boxShadow: `0 0 22px -2px ${alpha(brand[400], 0.75)}`,
                 },
                 '&:active': {
-                  backgroundColor: gray[400],
+                  filter: 'brightness(0.95)',
                 },
               }),
             },
@@ -125,12 +126,12 @@ export const inputsCustomizations: Components<Theme> = {
                 backgroundColor: gray[200],
               },
               ...theme.applyStyles('dark', {
-                backgroundColor: gray[800],
-                borderColor: gray[700],
+                backgroundColor: alpha(gray[900], 0.6),
+                borderColor: gray[600],
 
                 '&:hover': {
-                  backgroundColor: gray[900],
-                  borderColor: gray[600],
+                  backgroundColor: alpha(brand[900], 0.6),
+                  borderColor: brand[500],
                 },
                 '&:active': {
                   backgroundColor: gray[900],

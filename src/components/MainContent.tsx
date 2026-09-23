@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import { styled } from '@mui/material/styles';
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import { keyframes } from '@mui/material/styles';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 
 // My Imports
@@ -15,66 +16,20 @@ import EducationMe from './EducationMe';
 import WorkMe from './WorkMe';
 import ProjectMe from './ProjectMe';
 import PhotoMe from './PhotoMe';
-
-import {StyledCard} from './StyleCard';
+import socials from '../data/socials.json';
+import { monoFont, accentGradient, gradientText } from '../../shared-theme/themePrimitives';
 
 
 const bannerImg = new URL('../assets/banner/freedom-tower.jpg', import.meta.url).href;
 
-const StyledTypography = styled(Typography)({
-  display: '-webkit-box',
-  WebkitBoxOrient: 'vertical',
-  WebkitLineClamp: 2,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-});
+const blink = keyframes`
+  50% { opacity: 0; }
+`;
 
-
-export function Search() {
-  return (
-    <FormControl sx={{ width: { xs: '100%', md: '25ch' } }} variant="outlined">
-      <OutlinedInput
-        size="small"
-        id="search"
-        placeholder="Search…"
-        sx={{ flexGrow: 1 }}
-        startAdornment={
-          <InputAdornment position="start" sx={{ color: 'text.primary' }}>
-            <SearchRoundedIcon fontSize="small" />
-          </InputAdornment>
-        }
-        inputProps={{
-          'aria-label': 'search',
-        }}
-      />
-    </FormControl>
-  );
-}
+const heroTags = ['CompTIA Security+', 'ISC2 CC', 'AWS', 'DevSecOps','M.S. Cybersecurity'];
 
 export default function MainContent({ setCurrentSection }: { setCurrentSection: (section: string) => void }) {
-  const [focusedCardIndex, setFocusedCardIndex] = React.useState<number | null>(
-    null,
-  );
-
-  const handleFocus = (index: number) => {
-    setFocusedCardIndex(index);
-  };
-
-  const handleBlur = () => {
-    setFocusedCardIndex(null);
-  };
-
-
-  const divider = <Grid size={{ xs: 12, md: 6 }}>
-          <StyledCard
-            variant="outlined"
-            onFocus={() => handleFocus(1)}
-            onBlur={handleBlur}
-            tabIndex={0}
-            className={focusedCardIndex === 1 ? 'Mui-focused' : ''}
-          >
-          </StyledCard>
-      </Grid>
+  const divider = <Divider />;
 
   const homeRed = React.useRef<HTMLDivElement>(null);
   const aboutRef = React.useRef<HTMLDivElement>(null);
@@ -117,99 +72,150 @@ export default function MainContent({ setCurrentSection }: { setCurrentSection: 
     }, [setCurrentSection]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 5, md: 7 } }}>
 
       {/* Banner Section */}
-      <Box ref={homeRed} id="home" 
+      <Box ref={homeRed} id="home"
         sx={{
           position: 'relative',
-          height: { xs: 300, md: 400 }, // adjust height for mobile/desktop
+          overflow: 'hidden',
+          minHeight: { xs: 380, md: 460 },
           width: '100%',
           backgroundImage: `url(${bannerImg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          borderRadius: 2,
+          borderRadius: 3,
+          border: '1px solid',
+          borderColor: 'divider',
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
           alignItems: 'center',
-          color: 'common.white', // default text color on banner
-          textAlign: 'center',
-          px: 2,
+          color: 'common.white',
         }} >
-        {/* Optional overlay for better readability */}
+        {/* Dark overlay: solid on the left behind the text, fading to the photo on the right */}
         <Box
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          bgcolor: 'rgba(0, 0, 0, 0.4)', // semi-transparent overlay
-          borderRadius: 2,
-        }} />
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            background: {
+              xs: 'rgba(5, 8, 12, 0.8)',
+              md: 'linear-gradient(90deg, rgba(5, 8, 12, 0.95) 0%, rgba(5, 8, 12, 0.8) 45%, rgba(5, 8, 12, 0.35) 100%)',
+            },
+          }} />
+        {/* Faint grid texture */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            opacity: 0.12,
+            backgroundImage:
+              'linear-gradient(hsla(236, 85%, 65%, 0.6) 1px, transparent 1px), linear-gradient(90deg, hsla(236, 85%, 65%, 0.6) 1px, transparent 1px)',
+            backgroundSize: '40px 40px',
+            maskImage: 'linear-gradient(90deg, black, transparent 70%)',
+          }} />
+        {/* Gradient accent bar along the top edge */}
+        <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: accentGradient }} />
 
         {/* Text content */}
         <Box
           sx={{
-            px: { xs: 2, sm: 4, md: 10 }, // responsive horizontal padding
-            textAlign: { xs: 'center', md: 'left' },
             position: 'relative',
             zIndex: 1,
+            px: { xs: 3, sm: 5, md: 8 },
+            py: 6,
+            maxWidth: 820,
           }}
         >
-          <StyledTypography
-            variant="h3"
-            gutterBottom
+          <Typography
+            sx={{ fontFamily: monoFont, color: 'primary.main', fontSize: { xs: '0.85rem', md: '1rem' }, mb: 1.5 }}
+          >
+            {'> whoami'}
+            <Box component="span" sx={{ animation: `${blink} 1s step-end infinite`, ml: 0.5 }}>_</Box>
+          </Typography>
+          <Typography
+            variant="h1"
             sx={{
-              fontWeight: 'bold',
-              fontSize: { xs: '2rem', sm: '3rem', md: '4rem' },
-              lineHeight: 1.2,
+              fontSize: { xs: '2.1rem', sm: '3rem', md: '4rem' },
+              lineHeight: 1.1,
+              mb: 1.5,
             }}
           >
             Nicholas Hillengas
-          </StyledTypography>
-          <Typography
-            variant="h6"
-            gutterBottom
-            sx={{ fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' } }}
-          >
-            <i>Cybersecurity Professional</i>
           </Typography>
           <Typography
-            variant="subtitle1"
-            borderLeft={2}
-            borderColor="primary.main"
-            pl={1.5}
+            variant="h5"
+            component="p"
+            sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' }, mb: 2, ...gradientText, width: 'fit-content' }}
+          >
+            Security-Focused Cloud Engineer · Systems Administrator
+          </Typography>
+          <Typography
+            variant="body1"
             sx={{
-              fontStyle: 'italic',
-              mt: 1,
-              fontSize: { xs: '0.8rem', sm: '1rem', md: '1.1rem' },
+              color: 'grey.300',
+              fontSize: { xs: '0.95rem', md: '1.1rem' },
+              maxWidth: 600,
+              mb: 3,
             }}
           >
-            I am passionate about solving problems and protecting individual's, and company's data
+            I am passionate about solving problems and protecting individuals' and companies' data.
           </Typography>
+
+          <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1, mb: 3 }}>
+            {heroTags.map((tag) => (
+              <Chip
+                key={tag}
+                label={tag}
+                sx={{
+                  borderColor: 'primary.dark',
+                  bgcolor: 'rgba(5, 8, 12, 0.6)',
+                  '& .MuiChip-label': { color: 'grey.200', fontFamily: monoFont, fontWeight: 500 },
+                }}
+              />
+            ))}
+          </Stack>
+
+          <Stack direction="row" spacing={1.5}>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<LinkedInIcon />}
+              href={`https://www.linkedin.com/in/${socials.linkedIn}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<GitHubIcon />}
+              href={`https://github.com/${socials.gitHub}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </Button>
+          </Stack>
         </Box>
 
       </Box>
 
-      {divider}
-
-      {divider}
-      <Box ref={aboutRef} id="about">
+      <Box ref={aboutRef} id="about" sx={{ scrollMarginTop: 110 }}>
         <AboutMe />
       </Box>
       {divider}
-      <Box ref={educationRef} id="education">
+      <Box ref={educationRef} id="education" sx={{ scrollMarginTop: 110 }}>
         <EducationMe />
       </Box>
       {divider}
-      <Box ref={workRef} id="work">
+      <Box ref={workRef} id="work" sx={{ scrollMarginTop: 110 }}>
         <WorkMe />
       </Box>
       {divider}
-      <Box ref={projectRef} id="projects">
+      <Box ref={projectRef} id="projects" sx={{ scrollMarginTop: 110 }}>
         <ProjectMe />
       </Box>
       {divider}
-      <Box ref={photoRef} id="photos">
+      <Box ref={photoRef} id="photos" sx={{ scrollMarginTop: 110 }}>
         <PhotoMe />
       </Box>
     </Box>
