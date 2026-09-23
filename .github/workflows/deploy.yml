@@ -1,8 +1,10 @@
-# Builds the site and deploys it to GitHub Pages (www.nicholashillengas.com)
-# only when a version tag like v1.0.0 is pushed.
+# Builds the site and publishes dist/ to the gh-pages branch, which GitHub Pages
+# serves at www.nicholashillengas.com. Runs only for plain version tags (v1.2.3).
 #
-#   git tag v1.0.0
-#   git push origin v1.0.0
+#   git tag -a v1.2.3 -m "..."
+#   git push origin v1.2.3
+#
+# Pages setting required: Source = Deploy from a branch -> gh-pages / (root)
 name: Deploy to GitHub Pages
 
 on:
@@ -11,9 +13,7 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write # push to the gh-pages branch
 
 # Don't let two releases deploy at the same time; let an in-progress deploy finish
 concurrency:
@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,18 +34,10 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - uses: actions/configure-pages@v5
-
-      - uses: actions/upload-pages-artifact@v3
+      # Commits dist/ (including public/CNAME) to gh-pages and adds .nojekyll
+      - uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          commit_message: 'Deploy ${{ github.ref_name }}'
